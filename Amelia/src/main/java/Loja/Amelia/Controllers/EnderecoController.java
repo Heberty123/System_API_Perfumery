@@ -48,4 +48,12 @@ public class EnderecoController {
 
         return enderecoCrud.remover(id);
     }
+
+
+    @GetMapping("/cep/{cep}")
+    public void ViaCep(@PathVariable Long cep){
+        System.out.println("Teste cep: " + cep);
+
+
+    }
 }
