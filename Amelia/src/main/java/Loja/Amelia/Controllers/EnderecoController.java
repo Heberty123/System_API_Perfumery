@@ -2,6 +2,7 @@ package Loja.Amelia.Controllers;
 
 import Loja.Amelia.Dto.EnderecoDto;
 import Loja.Amelia.Form.EnderecoForm;
+import Loja.Amelia.Models.API.CEP;
 import Loja.Amelia.Repositories.EnderecoRepository;
 import Loja.Amelia.Service.ServiceController.Endereco.EnderecoCrud;
 import lombok.AllArgsConstructor;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
@@ -47,5 +49,22 @@ public class EnderecoController {
     public ResponseEntity Remover(@PathVariable Long id){
 
         return enderecoCrud.remover(id);
+    }
+
+
+    @GetMapping("/cep/{cep}")
+    public void ViaCep(@PathVariable Long cep){
+        System.out.println("Teste cep: " + cep);
+
+        String url = String.format("https://viacep.com.br/ws/%s/json/", cep);
+
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        CEP teste = restTemplate.getForObject(url, CEP.class);
+
+
+
+        System.out.println(teste);
     }
 }
