@@ -11,4 +11,6 @@ import org.springframework.stereotype.Repository;
 public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 
     Page<Cliente> findAll(Pageable paginacao);
+
+    boolean existsByCpf(String cpf);
 }

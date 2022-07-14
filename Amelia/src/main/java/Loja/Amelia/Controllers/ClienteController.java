@@ -1,7 +1,6 @@
 package Loja.Amelia.Controllers;
 
 import Loja.Amelia.Dto.ClienteDto;
-import Loja.Amelia.Repositories.ClienteRepository;
 import Loja.Amelia.Service.ServiceController.Cliente.ClienteCrud;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -17,22 +16,35 @@ import javax.validation.Valid;
 @ResponseBody @RequestMapping("/Cliente")
 public class ClienteController {
 
+
+
     private ClienteCrud crudCliente;
 
 
     @GetMapping
     public ResponseEntity<?> clientes(@PageableDefault(sort = "nome", size = 100, direction = Direction.ASC) Pageable paginacao){
 
+
+
         return crudCliente.AllClientes(paginacao);
+
+
+
     }
 
 
     @PostMapping
     @Transactional
-    public ResponseEntity<ClienteDto> cadastro(@RequestBody @Valid ClienteDto clienteDto, UriComponentsBuilder uri){
+    public ResponseEntity<?> cadastro(@RequestBody @Valid ClienteDto clienteDto, UriComponentsBuilder uri) {
 
 
-        return crudCliente.Cadastro(clienteDto, uri);
+
+
+            return crudCliente.Cadastro(clienteDto, uri);
+
+
+
+
     }
 
 
@@ -40,7 +52,14 @@ public class ClienteController {
     @Transactional
     public ResponseEntity<?> Editar(@RequestBody @Valid ClienteDto clienteDto, @PathVariable Long id){
 
+
+
+
         return crudCliente.Editar(clienteDto, id);
+
+
+
+
     }
 
 
@@ -48,14 +67,26 @@ public class ClienteController {
     @Transactional
     public ResponseEntity<?> Remover(@PathVariable Long id){
 
+
+
         return crudCliente.Remover(id);
+
+
+
     }
 
     @DeleteMapping("/All")
     @Transactional
     public ResponseEntity RemoverAll(){
 
+
+
+
         return crudCliente.RemoverAll();
+
+
+
+
     }
 
 
