@@ -13,7 +13,7 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 @RestController @AllArgsConstructor
-@ResponseBody @RequestMapping("/Cliente")
+@RequestMapping("/Cliente")
 public class ClienteController {
 
 
