@@ -1,8 +1,6 @@
 package Loja.Amelia.Dto;
 
 import Loja.Amelia.Models.Cliente;
-import Loja.Amelia.Repositories.ClienteRepository;
-import Loja.Amelia.Validacao.Constraints.Telefone;
 import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.Setter;

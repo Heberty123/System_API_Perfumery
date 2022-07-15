@@ -66,7 +66,7 @@ public class ClienteCrud {
     }
 
 
-    public ResponseEntity<?> Remover(@PathVariable Long id){
+    public ResponseEntity<?> Remover(Long id){
 
         if(repCliente.findById(id).isPresent()){
             repCliente.deleteById(id);
