@@ -53,7 +53,7 @@ public class EnderecoController {
 
 
     @GetMapping("/cep/{cep}")
-    public void ViaCep(@PathVariable Long cep){
+    public ResponseEntity<CEP> ViaCep(@PathVariable Long cep){
         System.out.println("Teste cep: " + cep);
 
         String url = String.format("https://viacep.com.br/ws/%s/json/", cep);
@@ -63,8 +63,6 @@ public class EnderecoController {
 
         CEP teste = restTemplate.getForObject(url, CEP.class);
 
-
-
-        System.out.println(teste);
+        return ResponseEntity.ok().body(teste);
     }
 }
