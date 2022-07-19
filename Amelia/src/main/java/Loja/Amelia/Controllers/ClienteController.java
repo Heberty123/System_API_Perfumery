@@ -90,4 +90,18 @@ public class ClienteController {
     }
 
 
+    @GetMapping("/withAddress/{id}")
+    @Transactional
+    public ResponseEntity ComEndereco(@PathVariable Long id){
+
+
+
+
+        return crudCliente.ComEndereco(id);
+
+
+
+
+    }
+
 }

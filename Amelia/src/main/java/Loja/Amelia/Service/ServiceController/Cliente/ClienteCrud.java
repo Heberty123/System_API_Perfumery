@@ -1,11 +1,13 @@
 package Loja.Amelia.Service.ServiceController.Cliente;
 
 import Loja.Amelia.Dto.ClienteDto;
+import Loja.Amelia.Dto.ClienteEnderecoDto;
 import Loja.Amelia.Exception.ConflictCPFAlreadyExist;
 import Loja.Amelia.Models.Cliente;
 import Loja.Amelia.Repositories.ClienteRepository;
 import lombok.AllArgsConstructor;
 import org.hibernate.exception.ConstraintViolationException;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -25,6 +27,7 @@ public class ClienteCrud {
 
     private ClienteRepository repCliente;
 
+    private ModelMapper modelMapper;
 
     public ResponseEntity<?> AllClientes(Pageable paginacao){
 
@@ -80,5 +83,14 @@ public class ClienteCrud {
 
         repCliente.deleteAll();
         return ResponseEntity.ok().build();
+    }
+
+    public ResponseEntity ComEndereco(Long id){
+
+        Cliente cliente = repCliente.findById(id).get();
+        ClienteEnderecoDto endCli = new ClienteEnderecoDto();
+        ClienteEnderecoDto teste = modelMapper.map(cliente, ClienteEnderecoDto.class);
+
+        return ResponseEntity.ok(teste);
     }
 }
