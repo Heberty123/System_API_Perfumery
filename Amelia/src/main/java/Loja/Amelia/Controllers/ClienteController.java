@@ -90,6 +90,7 @@ public class ClienteController {
     }
 
 
+    @CrossOrigin(origins = {"http://localhost:3000"})
     @GetMapping("/withAddress/{id}")
     @Transactional
     public ResponseEntity ComEndereco(@PathVariable Long id){
