@@ -11,4 +11,5 @@ import java.util.List;
 public interface EnderecoRepository extends JpaRepository<Endereco, Long> {
     @Query("SELECT e FROM Endereco e INNER JOIN e.cliente c WHERE c.id = :id")
     List<Endereco> findByClienteId(@PathParam("id") Long id);
+
 }

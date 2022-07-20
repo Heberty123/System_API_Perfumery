@@ -2,9 +2,11 @@ package Loja.Amelia.Service.ServiceController.Cliente;
 
 import Loja.Amelia.Dto.ClienteDto;
 import Loja.Amelia.Dto.ClienteEnderecoDto;
+import Loja.Amelia.Dto.EnderecoDto;
 import Loja.Amelia.Exception.ConflictCPFAlreadyExist;
 import Loja.Amelia.Models.Cliente;
 import Loja.Amelia.Repositories.ClienteRepository;
+import Loja.Amelia.Repositories.EnderecoRepository;
 import lombok.AllArgsConstructor;
 import org.hibernate.exception.ConstraintViolationException;
 import org.modelmapper.ModelMapper;
@@ -26,7 +28,7 @@ import java.net.URI;
 public class ClienteCrud {
 
     private ClienteRepository repCliente;
-
+    private EnderecoRepository repEndereco;
     private ModelMapper modelMapper;
 
     public ResponseEntity<?> AllClientes(Pageable paginacao){
@@ -87,10 +89,16 @@ public class ClienteCrud {
 
     public ResponseEntity ComEndereco(Long id){
 
-        Cliente cliente = repCliente.findById(id).get();
-        ClienteEnderecoDto endCli = new ClienteEnderecoDto();
-        ClienteEnderecoDto teste = modelMapper.map(cliente, ClienteEnderecoDto.class);
+        if(!repCliente.existsById(id))
+            return ResponseEntity.notFound().build();
 
-        return ResponseEntity.ok(teste);
+        ClienteEnderecoDto clienteEnderecoDto = new ClienteEnderecoDto();
+        clienteEnderecoDto.setByClient(repCliente.findById(id).get());
+        clienteEnderecoDto.setEnderecos(EnderecoDto.AllEnderecosDto(repEndereco.findByClienteId(id)));
+
+
+
+
+        return ResponseEntity.ok(clienteEnderecoDto);
     }
 }

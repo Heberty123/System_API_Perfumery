@@ -1,7 +1,7 @@
-import axios from 'axios';
+import axios from "axios";
 
 const api = axios.create({
-    baseURL: 'https://localhost:8080/Endereco/cep/13311310'
-})
+    baseURL: 'http://localhost:8080/Cliente/withAddress/2'
+});
 
 export default api;
