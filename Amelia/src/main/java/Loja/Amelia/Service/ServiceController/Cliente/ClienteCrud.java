@@ -42,6 +42,16 @@ public class ClienteCrud {
     }
 
 
+    public ResponseEntity<?> OneClientes(Long id) {
+
+        if(!repCliente.existsById(id))
+            return ResponseEntity.notFound().build();
+
+
+        return new ResponseEntity<>(new ClienteDto(repCliente.findById(id).get()), HttpStatus.OK);
+    }
+
+
     public ResponseEntity<ClienteDto> Cadastro(ClienteDto clienteDto, UriComponentsBuilder uriBuilder) {
 
 
@@ -101,4 +111,6 @@ public class ClienteCrud {
 
         return ResponseEntity.ok(clienteEnderecoDto);
     }
+
+
 }

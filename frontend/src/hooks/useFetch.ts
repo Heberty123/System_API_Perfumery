@@ -8,6 +8,7 @@ export function useFetch<T = unknown>(url: string){
     useEffect(() => {
         axios.get(url)
             .then(response => {
+                console.log(response.data)
                 setData(response.data);
             })
             .finally(() => {

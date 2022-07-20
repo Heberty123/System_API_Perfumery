@@ -33,6 +33,18 @@ public class ClienteController {
     }
 
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> Umclientes(@PathVariable Long id){
+
+
+
+        return crudCliente.OneClientes(id);
+
+
+
+    }
+
+
     @PostMapping
     @Transactional
     public ResponseEntity<?> cadastro(@RequestBody @Valid ClienteDto clienteDto, UriComponentsBuilder uri) {

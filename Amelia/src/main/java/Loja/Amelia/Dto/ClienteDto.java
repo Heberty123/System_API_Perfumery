@@ -2,6 +2,7 @@ package Loja.Amelia.Dto;
 
 import Loja.Amelia.Models.Cliente;
 import com.sun.istack.NotNull;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.br.CPF;
@@ -9,7 +10,7 @@ import org.springframework.data.domain.Page;
 
 import javax.validation.constraints.NotEmpty;
 
-@Getter @Setter
+@Data
 public class ClienteDto {
 
     private Long Id;
@@ -40,4 +41,5 @@ public class ClienteDto {
     public Cliente converter() {
         return new Cliente(this.nome, this.cpf, this.telefone, this.telefone2, this.telefone3);
     }
+
 }
