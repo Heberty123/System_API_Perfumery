@@ -1,18 +1,18 @@
+import axios from "axios";
 import { useFetch, usePost } from "./hooks/useFetch";
+import Cliente from "./model/Cliente"
 
-type Cliente = {
-  nome: string;
-  cpf: string;
-  telefone: string;
-  telefone2: string;
-  telefone3: string;
-}
 
-/*
 export default function App() {
 
   
   const { data: dados, isFetching } = useFetch<Cliente>("/Cliente/1");
+
+  let cliente = new Cliente("TesteAxiossss", "02915822905", "3252523545", "931546646", "244735646");
+
+  usePost<Cliente>("/Cliente", {
+    data: cliente
+  });
   
   return (
     <ul>
@@ -26,29 +26,31 @@ export default function App() {
     </ul>
   );
 }
-*/
+
+
+/*
 
 export default function App() {
 
-  const { data: dados, isFetching } = usePost<Cliente>("/Cliente", {
-    data: {
-      nome: "testePost",
-      cpf: "362.037.388.40",
-      telefone: "1354235432",
-      telefone2: "323232323",
-      telefone3: "997867675",
-    }
-  });
-
-  return (
-    <div>
-
-    </div>
-  );
-
-}
 
 
+
+let cliente = new Cliente("Vanderléria santos melaré fernandes", "42597142876", "3252523545", "931546646", "244735646");
+let cliente1 = new Cliente("Vagner ferreira mello", "30296415898", "3252523545", "931546646", "244735646");
+
+
+
+  axios.post("http://localhost:8080/Cliente", cliente1)
+            .then(response => {
+                console.log(response.data)
+            })
+
+
+return (
+  <h1>
+    foi importado! Não sei kakakaka
+  </h1>
+);
   
-
-
+}
+*/

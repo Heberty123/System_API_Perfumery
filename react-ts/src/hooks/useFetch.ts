@@ -31,16 +31,25 @@ export function useFetch<T = unknown>(url: string, options?: AxiosRequestConfig)
 
 /*  API - POST    */
 
-export function usePost<T = unknown>(url: string, options?: AxiosRequestConfig){
+export function usePost<T = unknown>(url: string, options?: AxiosRequestConfig<T>){
+/*
     const [data, setData] = useState<T | null>(null);
     const [isFetching, setIsFetching] = useState(true);
-
+*/
     useEffect(() => {
-        api.post(url, options)
+        api.post(url, options?.data).then(res => {
+            console.log(res)
+        })
+        .then(res => {
+            console.log("Deu certo");
+        })
+        .catch(() => {
+            console.log("Deu errado")
+        })
 
     }, []);
 
-    return { data, isFetching }
+
 }
 
 
