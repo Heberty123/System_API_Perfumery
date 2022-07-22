@@ -6,6 +6,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default () => {
 
+    function teste(){
+        console.log("opa fui clicado!");
+    }
+
     return(
         <div>
             <Navbar variant="dark" bg="dark" expand="lg">
@@ -19,7 +23,7 @@ export default () => {
                         title="Cliente"
                         menuVariant="dark"
                         >
-                        <NavDropdown.Item href="#action/3.1">Cadastrar</NavDropdown.Item>
+                        <NavDropdown.Item href="#action/3.1" onClick={teste}>Cadastrar</NavDropdown.Item>
                         <NavDropdown.Item href="#action/3.2">
                             Pesquisar
                         </NavDropdown.Item>
