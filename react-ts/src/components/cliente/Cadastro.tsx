@@ -2,83 +2,144 @@ import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
+import InputGroup from 'react-bootstrap/InputGroup';
+import { useEffect ,useRef } from 'react';
+
+
+
 
 
 
 export default () => {
 
+
+    const i_nome = document.getElementById('i_nome');
+    
+
+    function teste(){
+        console.log("Você digitou: " + i_nome)
+    }
+
+
     return (
         <>
-            <Form>
+            <Form className='mt-4' >
                 <Row className="mb-3">
                     <Form.Group as={Col} controlId="formGridEmail">
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control type="email" placeholder="Enter email" />
+                    <Form.Label>Nome</Form.Label>
+                    <input type="text" placeholder="entra nome" id='i_nome' />
                     </Form.Group>
 
                     <Form.Group as={Col} controlId="formGridPassword">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" placeholder="Password" />
+                    <Form.Label>CPF</Form.Label>
+                    <Form.Control type="text" placeholder="entra cpf do cliente" id='i_cpf'/>
                     </Form.Group>
                 </Row>
-
-                <Form.Group className="mb-3" controlId="formGridAddress1">
-                    <Form.Label>Address</Form.Label>
-                    <Form.Control placeholder="1234 Main St" />
-                </Form.Group>
-
-                <Form.Group className="mb-3" controlId="formGridAddress2">
-                    <Form.Label>Address 2</Form.Label>
-                    <Form.Control placeholder="Apartment, studio, or floor" />
-                </Form.Group>
 
                 <Row className="mb-3">
-                    <Form.Group as={Col} controlId="formGridCity">
-                    <Form.Label>City</Form.Label>
-                    <Form.Control />
+                    <Form.Group as={Col} controlId="formGridEmail">
+                    <Form.Label>Telefone 1</Form.Label>
+                    <Form.Control type="text" placeholder="entra primeiro telefone" />
                     </Form.Group>
 
-                    <Form.Group as={Col} controlId="formGridState">
-                    <Form.Label>State</Form.Label>
-                    <Form.Select defaultValue="Choose...">
-                        <option>Choose...</option>
-                        <option>...</option>
-                    </Form.Select>
+                    <Form.Group as={Col} controlId="formGridPassword">
+                    <Form.Label>telefone 2 (opcional)</Form.Label>
+                    <Form.Control type="text" placeholder="entra segundo telefone" />
                     </Form.Group>
-
-                    <Form.Group as={Col} controlId="formGridZip">
-                    <Button></Button>
-                    <Form.Label>Zip</Form.Label>
-                    <Form.Control />
-                    </Form.Group>
-
-                    
                 </Row>
 
-                <Form.Group className="mb-3" id="formGridCheckbox">
-                    <Form.Check type="checkbox" label="Check me out" />
-                </Form.Group>
+                <Row className="mb-3">
+                    <Form.Group as={Col} controlId="formGridEmail">
+                    <Form.Label>não sei</Form.Label>
+                    <Form.Control type="text" placeholder="entra nome" />
+                    </Form.Group>
 
-            <Button variant="primary" type="submit">
+                    <Form.Group as={Col} controlId="formGridPassword">
+                    <Form.Label>ainda não </Form.Label>
+                    <Form.Control type="text" placeholder="entra cpf do cliente" />
+                    </Form.Group>
+                </Row>
+
+                
+
+                <Row className="align-items-center mt-5">
+
+                    <Col xs="2">
+                    <Form.Label htmlFor="inlineFormInputGroup" visuallyHidden>
+                        Username
+                    </Form.Label>
+                    <InputGroup className="mb-2">
+                        <InputGroup.Text>CEP</InputGroup.Text>
+                        <Form.Control id="inlineFormInputGroup" placeholder="XXXXXX-XX" />
+                    </InputGroup>
+                    </Col>
+
+                    <Col xs="auto">
+                    <Button type="submit" className="mb-2">
+                        Buscar
+                    </Button>
+                    </Col>
+
+
+                    <Col xs="auto">
+                    <Form.Label htmlFor="inlineFormInput" visuallyHidden>
+                        Rua
+                    </Form.Label>
+                    <Form.Control
+                        className="mb-2"
+                        id="inlineFormInput"
+                        placeholder="Rua exemplo..."
+                    />
+                    </Col>
+
+                    <Col xs="1">
+                    <Form.Label htmlFor="inlineFormInput" visuallyHidden>
+                        Número
+                    </Form.Label>
+                    <Form.Control
+                        className="mb-2"
+                        id="inlineFormInput"
+                        placeholder="Número exemplo..."
+                    />
+                    </Col>
+
+                    <Col xs="auto">
+                    <Form.Label htmlFor="inlineFormInput" visuallyHidden>
+                        Bairro
+                    </Form.Label>
+                    <Form.Control
+                        className="mb-2"
+                        id="inlineFormInput"
+                        placeholder="Bairro exemplo..."
+                    />
+                    </Col>
+
+                    <Col xs="auto">
+                    <Form.Label htmlFor="inlineFormInput" visuallyHidden>
+                        Cidade
+                    </Form.Label>
+                    <Form.Control
+                        className="mb-2"
+                        id="inlineFormInput"
+                        placeholder="Cidade exemplo..."
+                    />
+                    </Col>
+
+                    <Col xs="auto">
+                    <Form.Select defaultValue="Choose...">
+                        <option>São Paulo</option>
+                        <option>Rio de Janeiro</option>
+                    </Form.Select>
+                    </Col>
+                    
+
+                </Row>
+
+            <Button className='mt-4' variant="primary" onClick={teste}>
                 Submit
             </Button>
 
 
-        <Row>
-            <Col xs="auto">
-          <Form.Check
-            type="checkbox"
-            id="autoSizingCheck"
-            className="mb-2"
-            label="Remember me"
-          />
-        </Col>
-        <Col xs="auto">
-          <Button type="submit" className="mb-2">
-            Submit
-          </Button>
-        </Col>
-      </Row>
         </Form>
         </>
     );
