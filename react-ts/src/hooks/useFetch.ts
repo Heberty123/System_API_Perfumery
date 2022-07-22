@@ -18,6 +18,9 @@ export function useFetch<T = unknown>(url: string, options?: AxiosRequestConfig)
                 console.log(response.data)
                 setData(response.data);
             })
+            .catch((error) => {
+                console.log(error)
+            })
             .finally(() => {
                 setIsFetching(false);
             })
@@ -43,8 +46,8 @@ export function usePost<T = unknown>(url: string, options?: AxiosRequestConfig<T
         .then(res => {
             console.log("Deu certo");
         })
-        .catch(() => {
-            console.log("Deu errado")
+        .catch((error) => {
+            console.log(error);
         })
 
     }, []);

@@ -26,7 +26,7 @@ public class ClienteController {
 
 
 
-        return crudCliente.AllClientes(paginacao);
+        return crudCliente.AllClientes();
 
 
 

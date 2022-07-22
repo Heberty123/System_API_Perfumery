@@ -1,14 +1,13 @@
-import axios from "axios";
 import { useFetch, usePost } from "./hooks/useFetch";
 import Cliente from "./model/Cliente"
-
+/*
 
 export default function App() {
 
   
   const { data: dados, isFetching } = useFetch<Cliente>("/Cliente/1");
 
-  let cliente = new Cliente("TesteAxiossss", "02915822905", "3252523545", "931546646", "244735646");
+  let cliente = new Cliente("dataEstaCaindoCerto!", "47928197847", "3252523545", "931546646", "244735646");
 
   usePost<Cliente>("/Cliente", {
     data: cliente
@@ -27,8 +26,8 @@ export default function App() {
   );
 }
 
+*/
 
-/*
 
 export default function App() {
 
@@ -40,17 +39,30 @@ let cliente1 = new Cliente("Vagner ferreira mello", "30296415898", "3252523545",
 
 
 
-  axios.post("http://localhost:8080/Cliente", cliente1)
-            .then(response => {
-                console.log(response.data)
-            })
+  const { data, isFetching } = useFetch<Cliente[]>("/Cliente");
 
 
 return (
-  <h1>
-    foi importado! Não sei kakakaka
-  </h1>
+  <div>
+    <h1>
+    lista de clientes
+    </h1>
+    <ul>
+      {data?.map(p => {
+        return (
+          <div key={p.cpf}>
+            <h2>{p.nome}</h2>
+            <li>{p.cpf}</li>
+            <li>{p.telefone}</li>
+            <li>{p.telefone2}</li>
+            <li>{p.telefone3}</li>
+          </div>
+        )
+      })}
+    </ul>
+  </div>
+  
 );
   
 }
-*/
+

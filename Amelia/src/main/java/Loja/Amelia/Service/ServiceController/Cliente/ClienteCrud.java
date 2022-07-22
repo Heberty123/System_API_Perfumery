@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -31,9 +32,9 @@ public class ClienteCrud {
     private EnderecoRepository repEndereco;
     private ModelMapper modelMapper;
 
-    public ResponseEntity<?> AllClientes(Pageable paginacao){
+    public ResponseEntity<?> AllClientes(){
 
-        Page<Cliente> clientes = repCliente.findAll(paginacao);
+        List<Cliente> clientes = repCliente.findAll();
 
         if(clientes.isEmpty())
             return ResponseEntity.notFound().build();

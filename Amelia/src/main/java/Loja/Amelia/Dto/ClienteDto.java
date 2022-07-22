@@ -9,6 +9,8 @@ import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.data.domain.Page;
 
 import javax.validation.constraints.NotEmpty;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 public class ClienteDto {
@@ -33,8 +35,8 @@ public class ClienteDto {
         this.telefone3 = cliente.getTelefone3();
     }
 
-    public static Page<ClienteDto> Convert(Page<Cliente> cliente){
-        return cliente.map(ClienteDto::new);
+    public static List<ClienteDto> Convert(List<Cliente> cliente){
+        return cliente.stream().map(ClienteDto::new).collect(Collectors.toList());
     }
 
 
