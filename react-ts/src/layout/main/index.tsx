@@ -8,10 +8,6 @@ export default () => {
 
     return(
         <Container>
-            <h1>main</h1>
-            <Row>
-                <Col>1 of 1</Col>
-            </Row>
 
             <Cadastro/>
         </Container>
