@@ -5,6 +5,7 @@ import Header from './layout/header/index'
 import Main from './layout/main'
 
 
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
@@ -12,6 +13,8 @@ root.render(
   <>
     <Header/>
     <Main/>
+
+    
   </>
 );
 
