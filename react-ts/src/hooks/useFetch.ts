@@ -43,9 +43,6 @@ export function usePost<T = unknown>(url: string, options?: AxiosRequestConfig<T
         api.post(url, options?.data).then(res => {
             console.log(res)
         })
-        .then(res => {
-            console.log("Deu certo");
-        })
         .catch((error) => {
             console.log(error);
         })

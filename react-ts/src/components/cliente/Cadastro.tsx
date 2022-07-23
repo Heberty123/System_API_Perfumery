@@ -6,6 +6,8 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import { MutableRefObject, useEffect ,useRef, useState } from 'react';
 import axios from 'axios';
 import CEP from '../../model/CEP';
+import Cliente from '../../model/Cliente';
+import { usePost } from '../../hooks/useFetch';
 
 
 
@@ -13,6 +15,10 @@ export default () => {
 
 
     const i_nome = useRef<HTMLInputElement>(null)
+    const i_cpf = useRef<HTMLInputElement>(null)
+    const i_telefone = useRef<HTMLInputElement>(null)
+    const i_telefone2 = useRef<HTMLInputElement>(null)
+    const i_telefone3 = useRef<HTMLInputElement>(null)
     const i_cep = useRef<HTMLInputElement>(null)
     const i_rua = useRef<HTMLInputElement>(null)
     const i_numero = useRef<HTMLInputElement>(null)
@@ -21,21 +27,16 @@ export default () => {
     const i_estado = useRef<HTMLInputElement>(null)
 
 
-    useEffect(() => {
-        console.log("aconteceu alguma coisa!")
-    }, [])
     
 
 
     function BuscaCep(){
-
-            axios.get(`http://localhost:8080/Endereco/cep/${i_cep.current?.value}`)
+            axios.get(`https://viacep.com.br/ws/${i_cep.current?.value}/json/`)
                 .then(response => {
                     i_rua.current!.value = response.data.logradouro;
                     i_bairro.current!.value = response.data.bairro;
                     i_cidade.current!.value = response.data.localidade;
                     i_estado.current!.value = response.data.uf;
-
                 })
                 .catch((error) => {
                     console.log(error)
@@ -43,15 +44,30 @@ export default () => {
                 .finally(() => {
                     
                 })
+    }
 
+
+    function Registrar(){
+        let cliente = new Cliente(
+            i_nome.current!.value,
+            i_cpf.current!.value,
+            i_telefone.current!.value,
+            i_telefone2.current!.value,
+            i_telefone3.current!.value
+        )
 
         
+        axios.post("http://localhost:8080/Cliente", cliente).then(res => {
+            console.log(res)
+        })
+        .catch((error) => {
+            console.log("teste exception: " + error)
+
+        })
+
     }
     
 
-    function teste(){
-        console.log("Você digitou: " + i_nome.current?.value)
-    }
 
 
     return (
@@ -65,31 +81,26 @@ export default () => {
 
                     <Form.Group as={Col} controlId="formGridPassword">
                     <Form.Label>CPF</Form.Label>
-                    <Form.Control type="text" placeholder="entra cpf do cliente" id='i_cpf'/>
+                    <Form.Control type="text" placeholder="entra cpf do cliente" ref={i_cpf}/>
                     </Form.Group>
                 </Row>
 
                 <Row className="mb-3">
                     <Form.Group as={Col} controlId="formGridEmail">
                     <Form.Label>Telefone 1</Form.Label>
-                    <Form.Control type="text" placeholder="entra primeiro telefone" />
+                    <Form.Control type="text" placeholder="entra primeiro telefone" ref={i_telefone}/>
                     </Form.Group>
 
                     <Form.Group as={Col} controlId="formGridPassword">
                     <Form.Label>telefone 2 (opcional)</Form.Label>
-                    <Form.Control type="text" placeholder="entra segundo telefone" />
+                    <Form.Control type="text" placeholder="entra segundo telefone" ref={i_telefone2}/>
                     </Form.Group>
                 </Row>
 
                 <Row className="mb-3">
                     <Form.Group as={Col} controlId="formGridEmail">
-                    <Form.Label>não sei</Form.Label>
-                    <Form.Control type="text" placeholder="entra nome" />
-                    </Form.Group>
-
-                    <Form.Group as={Col} controlId="formGridPassword">
-                    <Form.Label>ainda não </Form.Label>
-                    <Form.Control type="text" placeholder="entra cpf do cliente" />
+                    <Form.Label>telefone 3</Form.Label>
+                    <Form.Control type="text" placeholder="entra terceiro telefone" ref={i_telefone3}/>
                     </Form.Group>
                 </Row>
 
@@ -101,7 +112,7 @@ export default () => {
 
                     <Col xs="2">
                     <Form.Label htmlFor="inlineFormInputGroup" visuallyHidden>
-                        Username
+                        CEP
                     </Form.Label>
                     <InputGroup className="mb-2">
                         <InputGroup.Text>CEP</InputGroup.Text>
@@ -119,7 +130,7 @@ export default () => {
                     </Col>
 
 
-                    <Col xs="auto">
+                    <Col xs="6">
                     <Form.Label htmlFor="inlineFormInput" visuallyHidden>
                         Rua
                     </Form.Label>
@@ -179,8 +190,8 @@ export default () => {
 
                 </Row>
 
-            <Button className='mt-4' variant="primary" onClick={teste}>
-                Submit
+            <Button className='mt-4' variant="primary" onClick={Registrar}>
+                Registrar
             </Button>
 
 
