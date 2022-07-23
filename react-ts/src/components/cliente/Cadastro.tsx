@@ -20,24 +20,28 @@ export default () => {
     const i_cidade = useRef<HTMLInputElement>(null)
     const i_estado = useRef<HTMLInputElement>(null)
 
+
+    useEffect(() => {
+        console.log("aconteceu alguma coisa!")
+    }, [])
     
-
-
-    const [ data, setData ] = useState<CEP>()
 
 
     function BuscaCep(){
 
             axios.get(`http://localhost:8080/Endereco/cep/${i_cep.current?.value}`)
                 .then(response => {
-                    setData(response.data)
-                    i_rua.current!.value = "teste"
+                    i_rua.current!.value = response.data.logradouro;
+                    i_bairro.current!.value = response.data.bairro;
+                    i_cidade.current!.value = response.data.localidade;
+                    i_estado.current!.value = response.data.uf;
+
                 })
                 .catch((error) => {
                     console.log(error)
                 })
                 .finally(() => {
-                    console.log(data)
+                    
                 })
 
 
@@ -104,12 +108,12 @@ export default () => {
                         <Form.Control id="inlineFormInputGroup"
                             placeholder="XXXXXX-XX"
                             ref={i_cep}
-                            value={data?.cep} />
+                            />
                     </InputGroup>
                     </Col>
 
                     <Col xs="auto">
-                    <Button type="submit" className="mb-2" onClick={BuscaCep}>
+                    <Button className="mb-2" onClick={BuscaCep}>
                         Buscar
                     </Button>
                     </Col>
@@ -147,9 +151,7 @@ export default () => {
                         className="mb-2"
                         id="inlineFormInput"
                         placeholder="Bairro exemplo..."
-                        value={data?.bairro}
-                        ref={i_bairro}
-                    />
+                        ref={i_bairro}/>
                     </Col>
 
                     <Col xs="auto">
@@ -160,9 +162,7 @@ export default () => {
                         className="mb-2"
                         id="inlineFormInput"
                         placeholder="Cidade exemplo..."
-                        value={data?.localidade}
-                        ref={i_cidade}
-                    />
+                        ref={i_cidade}/>
                     </Col>
 
                     <Col xs="auto">
@@ -173,9 +173,7 @@ export default () => {
                         className="mb-2"
                         id="inlineFormInput"
                         placeholder="Estado exemplo..."
-                        value={data?.uf}
-                        ref={i_estado}
-                    />
+                        ref={i_estado}/>
                     </Col>
                     
 
