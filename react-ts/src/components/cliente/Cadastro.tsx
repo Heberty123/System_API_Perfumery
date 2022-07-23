@@ -3,21 +3,50 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import InputGroup from 'react-bootstrap/InputGroup';
-import { useEffect ,useRef } from 'react';
-
-
-
+import { MutableRefObject, useEffect ,useRef, useState } from 'react';
+import axios from 'axios';
+import CEP from '../../model/CEP';
 
 
 
 export default () => {
 
 
-    const i_nome = document.getElementById('i_nome');
+    const i_nome = useRef<HTMLInputElement>(null)
+    const i_cep = useRef<HTMLInputElement>(null)
+    const i_rua = useRef<HTMLInputElement>(null)
+    const i_numero = useRef<HTMLInputElement>(null)
+    const i_bairro = useRef<HTMLInputElement>(null)
+    const i_cidade = useRef<HTMLInputElement>(null)
+    const i_estado = useRef<HTMLInputElement>(null)
+
+    
+
+
+    const [ data, setData ] = useState<CEP>()
+
+
+    function BuscaCep(){
+
+            axios.get(`http://localhost:8080/Endereco/cep/${i_cep.current?.value}`)
+                .then(response => {
+                    setData(response.data)
+                    i_rua.current!.value = "teste"
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+                .finally(() => {
+                    console.log(data)
+                })
+
+
+        
+    }
     
 
     function teste(){
-        console.log("Você digitou: " + i_nome)
+        console.log("Você digitou: " + i_nome.current?.value)
     }
 
 
@@ -27,7 +56,7 @@ export default () => {
                 <Row className="mb-3">
                     <Form.Group as={Col} controlId="formGridEmail">
                     <Form.Label>Nome</Form.Label>
-                    <input type="text" placeholder="entra nome" id='i_nome' />
+                    <Form.Control type="text" placeholder="entra nome" ref={i_nome} />
                     </Form.Group>
 
                     <Form.Group as={Col} controlId="formGridPassword">
@@ -62,6 +91,8 @@ export default () => {
 
                 
 
+
+
                 <Row className="align-items-center mt-5">
 
                     <Col xs="2">
@@ -70,12 +101,15 @@ export default () => {
                     </Form.Label>
                     <InputGroup className="mb-2">
                         <InputGroup.Text>CEP</InputGroup.Text>
-                        <Form.Control id="inlineFormInputGroup" placeholder="XXXXXX-XX" />
+                        <Form.Control id="inlineFormInputGroup"
+                            placeholder="XXXXXX-XX"
+                            ref={i_cep}
+                            value={data?.cep} />
                     </InputGroup>
                     </Col>
 
                     <Col xs="auto">
-                    <Button type="submit" className="mb-2">
+                    <Button type="submit" className="mb-2" onClick={BuscaCep}>
                         Buscar
                     </Button>
                     </Col>
@@ -89,6 +123,7 @@ export default () => {
                         className="mb-2"
                         id="inlineFormInput"
                         placeholder="Rua exemplo..."
+                        ref={i_rua}
                     />
                     </Col>
 
@@ -100,6 +135,7 @@ export default () => {
                         className="mb-2"
                         id="inlineFormInput"
                         placeholder="Número exemplo..."
+                        ref={i_numero}
                     />
                     </Col>
 
@@ -111,6 +147,8 @@ export default () => {
                         className="mb-2"
                         id="inlineFormInput"
                         placeholder="Bairro exemplo..."
+                        value={data?.bairro}
+                        ref={i_bairro}
                     />
                     </Col>
 
@@ -122,14 +160,22 @@ export default () => {
                         className="mb-2"
                         id="inlineFormInput"
                         placeholder="Cidade exemplo..."
+                        value={data?.localidade}
+                        ref={i_cidade}
                     />
                     </Col>
 
                     <Col xs="auto">
-                    <Form.Select defaultValue="Choose...">
-                        <option>São Paulo</option>
-                        <option>Rio de Janeiro</option>
-                    </Form.Select>
+                    <Form.Label htmlFor="inlineFormInput" visuallyHidden>
+                        Estado
+                    </Form.Label>
+                    <Form.Control
+                        className="mb-2"
+                        id="inlineFormInput"
+                        placeholder="Estado exemplo..."
+                        value={data?.uf}
+                        ref={i_estado}
+                    />
                     </Col>
                     
 
