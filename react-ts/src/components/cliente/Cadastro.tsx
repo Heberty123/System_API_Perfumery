@@ -8,6 +8,11 @@ import axios from 'axios';
 import CEP from '../../model/CEP';
 import Cliente from '../../model/Cliente';
 import { usePost } from '../../hooks/useFetch';
+import React from "react";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+
 
 
 
@@ -69,19 +74,37 @@ export default () => {
     
 
 
+    const schema = yup.object().shape({
+        email: yup.string().email().required(),
+        password: yup.string().min(8).max(32).required(),
+      });
+
+
+      const App = () => {
+        const { register, handleSubmit, formState: { errors }, reset } = useForm({
+          resolver: yupResolver(schema),
+        });
+
+        const onSubmitHandler = (data: Object) => {
+            console.log({ data });  
+            reset();
+          };
+
 
     return (
         <>
-            <Form className='mt-4' >
+            <Form className='mt-4' onSubmit={handleSubmit(onSubmitHandler)}>
                 <Row className="mb-3">
                     <Form.Group as={Col} controlId="formGridEmail">
                     <Form.Label>Nome</Form.Label>
-                    <Form.Control type="text" placeholder="entra nome" ref={i_nome} />
+                    <Form.Control type="text" {...register("email")} placeholder="entra nome" ref={i_nome} />
+                    <Form.Label>{errors.email?.message}</Form.Label>
                     </Form.Group>
 
                     <Form.Group as={Col} controlId="formGridPassword">
                     <Form.Label>CPF</Form.Label>
-                    <Form.Control type="text" placeholder="entra cpf do cliente" ref={i_cpf}/>
+                    <Form.Control type="text" {...register("password")} placeholder="entra cpf do cliente" ref={i_cpf}/>
+                    <p>{errors.password?.message}</p>
                     </Form.Group>
                 </Row>
 
@@ -190,7 +213,7 @@ export default () => {
 
                 </Row>
 
-            <Button className='mt-4' variant="primary" onClick={Registrar}>
+            <Button className='mt-4' variant="primary" type='submit'>
                 Registrar
             </Button>
 
@@ -198,4 +221,6 @@ export default () => {
         </Form>
         </>
     );
+}
+
 }
